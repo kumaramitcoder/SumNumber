@@ -17,5 +17,10 @@ public class Sum {
 	public int sumofnumbers() {
 		return this.num1 + this.num2;
 	}
+	
+	public int subtract(int a, int b)
+	{
+		return a-b;
+	}
 
 }
