@@ -16,4 +16,9 @@ public class SumUnitTest {
 		Sum s = new Sum(2,3);
 		assertNotNull(s);
 	}
+	
+	@Test
+	public void fake() {
+		assertTrue(false);
+	}
 }
