@@ -5,11 +5,60 @@
  * For more details take a look at the Java Libraries chapter in the Gradle
  * user guide available at https://docs.gradle.org/5.0/userguide/java_library_plugin.html
  */ 
+ 
+buildscript {
+    repositories {
+        maven {
+        url "https://sdartifact.td.teradata.com/artifactory/mavenCentral"
+        credentials {
+            username = "$artifactoryUsername"
+            password = "$artifactoryPassword"
+        }
+    }
+    maven {
+        url "https://sdartifact.td.teradata.com/artifactory/jcenter"
+        credentials {
+            username = "$artifactoryUsername"
+            password = "$artifactoryPassword"
+        }
+    }
+    maven {
+        url "https://sdartifact.td.teradata.com/artifactory/dependencies-snapshot"
+        credentials {
+            username = "$artifactoryUsername"
+            password = "$artifactoryPassword"
+        }
+    }
+    maven {
+        url "https://sdartifact.td.teradata.com/artifactory/dependencies-released"
+        credentials {
+            username = "$artifactoryUsername"
+            password = "$artifactoryPassword"
+        }
+    }
+    ivy {
+        url "http://continuum.td.teradata.com/ivyrep"
+        layout "pattern", {
+            artifact "[organization]/[module]/[revision]/[artifact].[ext]"
+            ivy "[organization]/[module]/ivy-[revision].xml"
+            ivy "[organisation]/[module]/[revision]/ivy.xml"
+        }
+    }
+
+    mavenLocal()
+    }
+
+    dependencies {
+        classpath("com.bmuschko:gradle-clover-plugin:2.2.1")
+    }
+}
+
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'application'
+    id "com.bmuschko.clover" version "2.2.1"
 }
 
 application{
@@ -35,6 +84,8 @@ dependencies {
 	testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.4'
   	testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.4'
   	testCompile group: 'org.powermock', name: 'powermock-api-easymock', version: '1.6.4'
+  	
+   clover 'org.openclover:clover:4.2.0'
 }
 
 test{
@@ -42,5 +93,11 @@ test{
 afterTest {
          desc, result -> logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
       }
+}
+
+clover {
+    report {
+        html = true
+    }
 }
 
