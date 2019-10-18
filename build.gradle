@@ -4,11 +4,16 @@
  * This generated file contains a sample Java Library project to get you started.
  * For more details take a look at the Java Libraries chapter in the Gradle
  * user guide available at https://docs.gradle.org/5.0/userguide/java_library_plugin.html
- */
+ */ 
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'application'
+}
+
+application{
+    mainClassName = "SumNumber.SumTest"
 }
 
 repositories {
@@ -26,4 +31,16 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    testCompile 'junit:junit:4.13-beta-3'
+	testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.4'
+  	testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.4'
+  	testCompile group: 'org.powermock', name: 'powermock-api-easymock', version: '1.6.4'
 }
+
+test{
+ ignoreFailures = true
+afterTest {
+         desc, result -> logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+      }
+}
+
