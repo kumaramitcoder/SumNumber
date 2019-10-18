@@ -8,44 +8,7 @@
  
 buildscript {
     repositories {
-        maven {
-        url "https://sdartifact.td.teradata.com/artifactory/mavenCentral"
-        credentials {
-            username = "$artifactoryUsername"
-            password = "$artifactoryPassword"
-        }
-    }
-    maven {
-        url "https://sdartifact.td.teradata.com/artifactory/jcenter"
-        credentials {
-            username = "$artifactoryUsername"
-            password = "$artifactoryPassword"
-        }
-    }
-    maven {
-        url "https://sdartifact.td.teradata.com/artifactory/dependencies-snapshot"
-        credentials {
-            username = "$artifactoryUsername"
-            password = "$artifactoryPassword"
-        }
-    }
-    maven {
-        url "https://sdartifact.td.teradata.com/artifactory/dependencies-released"
-        credentials {
-            username = "$artifactoryUsername"
-            password = "$artifactoryPassword"
-        }
-    }
-    ivy {
-        url "http://continuum.td.teradata.com/ivyrep"
-        layout "pattern", {
-            artifact "[organization]/[module]/[revision]/[artifact].[ext]"
-            ivy "[organization]/[module]/ivy-[revision].xml"
-            ivy "[organisation]/[module]/[revision]/ivy.xml"
-        }
-    }
-
-    mavenLocal()
+        jcenter()
     }
 
     dependencies {
