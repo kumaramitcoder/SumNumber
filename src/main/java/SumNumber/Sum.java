@@ -9,6 +9,10 @@ public class Sum {
 		this.num2 =b;
 	}
 	
+	public Sum() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int sumofnumbers(int a, int b)
 	{
 		return a+b;
